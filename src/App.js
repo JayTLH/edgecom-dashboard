@@ -1,17 +1,18 @@
-import { ThemeProvider } from "@mui/material";
-
-import { theme } from "./theme";
-import { Login, Dashboard } from "./pages";
 import * as Styled from "./App.styled";
+import { Login, Dashboard } from "./pages";
+import { ThemeProvider } from "./theme";
+import { UserProvider } from "./contexts";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Styled.Background>
-        <Styled.Wrapper>
-          <Login />
-        </Styled.Wrapper>
-      </Styled.Background>
+    <ThemeProvider>
+      <UserProvider>
+        <Styled.Background>
+          <Styled.Wrapper>
+            <Login />
+          </Styled.Wrapper>
+        </Styled.Background>
+      </UserProvider>
     </ThemeProvider>
   );
 }

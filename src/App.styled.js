@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 
 export const Background = styled("div")(({ theme }) => ({
-  background: theme.palette.black.light,
+  background: theme.palette.primary.main,
   height: "100vh",
 }));
 

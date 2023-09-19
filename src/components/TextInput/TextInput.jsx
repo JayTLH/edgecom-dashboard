@@ -1,5 +1,7 @@
-import React from "react";
+import { forwardRef } from 'react';
 
-export const TextInput = () => {
-  return <div>TextInput</div>;
+import * as Styled from './TextInput.styled'
+
+export const TextInput = (props) => {
+  return <Styled.TextField variant="outlined" {...props} />;
 };
