@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 
 export const Background = styled("div")(({ theme }) => ({
   background: theme.palette.primary.main,
-  height: "100vh",
+  minHeight: "100vh",
 }));
 
 export const Wrapper = styled("div")(({ theme }) => ({

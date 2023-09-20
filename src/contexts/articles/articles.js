@@ -42,7 +42,7 @@ export const ArticleProvider = ({ children }) => {
     // initialize mock database
     if (!articleData) {
       localStorage.setItem("articles", JSON.stringify(seed));
-      setArticles(articleData);
+      setArticles(seed);
     }
   }, [articleData]);
 

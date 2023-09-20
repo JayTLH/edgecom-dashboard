@@ -15,7 +15,7 @@ export const Dashboard = () => {
   const [selectedRow, setSelectedRow] = useState({});
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const formData = { title, description };
+  const formData = { title: title.trim(), description: description.trim() };
   const isCreateDisabled = !title.trim().length || !description.trim().length;
   const formattedDate = new Date(selectedRow?.createdAt).toLocaleDateString(undefined, {
     timeZone: "America/Toronto",
