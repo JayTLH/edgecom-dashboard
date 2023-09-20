@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Typography } from "@mui/material";
 
 import * as Styled from "./Login.styles";
@@ -21,7 +21,7 @@ export const Login = () => {
     const validations = validateInputs(formData);
 
     if (isSignUp) {
-      if (Object.keys(validations)) {
+      if (Object.keys(validations).length) {
         user.setErrors("There is an issue with the form");
         setErrors(validations);
         return;
@@ -42,6 +42,7 @@ export const Login = () => {
           </Typography>
 
           <TextInput
+            type="email"
             label="E-mail"
             style={{ marginBottom: "16px" }}
             autoComplete="email"
@@ -57,7 +58,7 @@ export const Login = () => {
             type="password"
             label="Password"
             style={{ marginBottom: "16px" }}
-            autoComplete="password"
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && (

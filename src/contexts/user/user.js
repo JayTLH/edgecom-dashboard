@@ -1,58 +1,68 @@
 import { useState, createContext, useEffect } from "react";
 
+import { seed } from "../../db/users";
+
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errors, setErrors] = useState("");
 
-  const currentUser = localStorage.getItem("user");
+  const currentUser = localStorage.getItem("user") || '';
   const users = JSON.parse(localStorage.getItem("users"));
-  const articles = JSON.parse(localStorage.getItem("articles"));
-  
+
   const login = (data) => {
-    if (!users[data.email]) {
+    const formattedEmail = data.email.toLowerCase();
+    const existingUser = users.find((user) => user.id === formattedEmail);
+    if (!existingUser) {
       setErrors("User not found");
       return;
     }
+    if (existingUser.password !== data.password) {
+      setErrors("Password incorrect");
+      return;
+    }
 
-    localStorage.setItem("user", data.email);
+    localStorage.setItem("user", formattedEmail);
     setIsLoggedIn(true);
     setErrors("");
   };
 
   const register = (data) => {
-    if (users[data.email]) {
+    const formattedEmail = data.email.toLowerCase();
+    const existingUser = users.find((user) => user.id === formattedEmail);
+    if (existingUser) {
       setErrors("E-mail is already in use");
       return;
     }
 
-    const newUserData = {
-      ...users,
-      [data.email]: { password: data.password },
-    };
+    const newUserData = [...users, { id: formattedEmail, password: data.password }];
     localStorage.setItem("users", JSON.stringify(newUserData));
-    localStorage.setItem("user", data.email);
+    localStorage.setItem("user", formattedEmail);
     setIsLoggedIn(true);
     setErrors("");
   };
 
   const logout = () => {
-    localStorage.setItem("user", null);
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
     // initialize mock database
-    if (!users || !articles) {
-      localStorage.setItem("users", JSON.stringify({ "test@test.com": { password: "Test1234" } }));
-      localStorage.setItem("articles", JSON.stringify({}));
+    if (!users) {
+      localStorage.setItem("users", JSON.stringify(seed));
     }
-  }, []);
+  }, [users]);
 
   useEffect(() => {
-    if (currentUser) {
-      setIsLoggedIn(true);
+    try {
+      if (currentUser) {
+        setIsLoggedIn(true);
+      }
+    } finally {
+      setIsLoading(false);
     }
   }, [currentUser]);
 
@@ -65,6 +75,8 @@ export const UserProvider = ({ children }) => {
         logout,
         errors,
         setErrors,
+        isLoading,
+        currentUser,
       }}
     >
       {children}
