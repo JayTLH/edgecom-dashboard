@@ -60,3 +60,9 @@ We also store a session for the logged in user in the `user` key of localStorage
   - User may create, edit, or delete articles.
   - Edit and delete functions are restricted only to the owner of the article.
 - Pages are responsive to above 320px as that is the smallest screen size available to most handheld devices.
+
+## Images
+![image](https://github.com/JayTLH/edgecom-dashboard/assets/53625509/34bd2340-2b85-44c2-a16c-f22966ef6fbe)
+![image](https://github.com/JayTLH/edgecom-dashboard/assets/53625509/d47a3d4e-f37f-4ef5-8f31-b047f4418ae3)
+![image](https://github.com/JayTLH/edgecom-dashboard/assets/53625509/8d7425bc-c161-46f5-af5f-a88974be777b)
+
